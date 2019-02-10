@@ -1,7 +1,6 @@
 Bundler.require(:default, :development)
 require "time"
 db = SQLite3::Database.new("Transition_beterugift.db")
-db.execute("CREATE TABLE IF NOT EXISTS gift_prices (id integer primary key, face_value integer, selling_price integer, discount_rate real, recording_date text)")
 stmt = db.prepare("INSERT INTO gift_prices(face_value, selling_price, discount_rate, recording_date) VALUES (?, ?, ?, ?)")
 
 
