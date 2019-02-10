@@ -1,5 +1,7 @@
 Bundler.require(:default, :development)
 require "time"
+require "./price_mailer.rb"
+
 db = SQLite3::Database.new("Transition_beterugift.db")
 stmt = db.prepare("INSERT INTO gift_prices(face_value, selling_price, discount_rate, recording_date) VALUES (?, ?, ?, ?)")
 
@@ -25,7 +27,9 @@ begin
                                  .delete("^0-9").to_f
   discount_rate  = (selling_price / face_value).truncate(4)
   recording_date = Time.now.getutc.iso8601
-  puts "#{face_value} #{selling_price} #{discount_rate} #{recording_date}"
+
+  puts results = "#{face_value} #{selling_price} #{discount_rate} #{recording_date}"
+  PriceMailer.send_mailer(results).deliver if discount_rate <= 0.93
 
   stmt.execute(face_value, selling_price, discount_rate, recording_date)
 rescue => e
