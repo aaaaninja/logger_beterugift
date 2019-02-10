@@ -18,8 +18,8 @@ ActionMailer::Base.smtp_settings = {
 class PriceMailer < ActionMailer::Base
   def send_mailer(body)
     mail(
+      from: CONFIG["gmail"]["from"],
       to: CONFIG["gmail"]["to"],
-      from: CONFIG["gmail"]["to"],
       subject: "Notify: 93%",
       body: "93%以下の値段のギフト券が出品されてますよ!!\n#{body}")
   end
