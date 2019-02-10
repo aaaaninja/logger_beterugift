@@ -1,0 +1,2 @@
+# logger_beterugift
+beterugiftの最安ギフト券の値段をsqlite3に記録していきます。
