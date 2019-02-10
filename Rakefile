@@ -8,11 +8,10 @@ task :hello do
 end
 
 desc "execute selenium-chromium and log cheapest price of beterugift to sqlite3"
-task :exec do
-  sh "bundle exec ruby exec_browse.rb"
-end
-
-desc "mostly equal :exec task, but with --jit option"
-task :exec_with_jit do
-  sh "env RUBYOPT='--jit' bundle exec ruby exec_browse.rb"
+task :exec, [:option] do |t, args|
+  if args[:option] == "jit"
+    sh "env RUBYOPT='--jit' bundle exec ruby exec_browse.rb"
+  else
+    sh "bundle exec ruby exec_browse.rb"
+  end
 end
